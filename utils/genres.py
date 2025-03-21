@@ -68,7 +68,6 @@ def load_progress(file_path):
 
 # Function to get artist details
 def get_artist_details(sp, artist_id):
-    # Check cache first
     artist_cache = load_cache()
     if artist_id in artist_cache:
         logging.info(f"Using cached data for artist {artist_id}")
@@ -79,7 +78,6 @@ def get_artist_details(sp, artist_id):
     for attempt in range(max_retries):
         try:
             result = sp.artist(artist_id)
-            # Cache the result
             artist_cache[artist_id] = result
             save_cache(artist_cache)
             return result
@@ -88,7 +86,6 @@ def get_artist_details(sp, artist_id):
             logging.warning(f"Connection error for artist {artist_id}. Retrying in {delay:.2f} seconds... (Attempt {attempt+1}/{max_retries})")
             time.sleep(delay)
         except Exception as e:
-            # Check if it's a rate limit error
             if "429" in str(e):
                 retry_after = int(getattr(e, 'headers', {}).get('Retry-After', 30))
                 logging.warning(f"Rate limit hit, waiting for {retry_after} seconds before retrying...")
@@ -104,7 +101,6 @@ def get_artist_details(sp, artist_id):
 
 # Main function to update tracks with artist details
 def update_tracks_with_artist_details(file_path):
-    # Load credentials from creds.json
     try:
         with open('creds.json', 'r') as f:
             creds = json.load(f)
@@ -119,7 +115,6 @@ def update_tracks_with_artist_details(file_path):
     sp = SpotipyClient(client_id, client_secret, redirect_uri, scope).get_token()
     logging.info(f"Starting to update tracks from {file_path}")
 
-    # Load processed track indices to resume if needed
     processed_indices = load_progress(file_path)
     if processed_indices:
         logging.info(f"Resuming from previous run, already processed {len(processed_indices)} tracks")
@@ -130,9 +125,7 @@ def update_tracks_with_artist_details(file_path):
     total_tracks = len(tracks)
     logging.info(f"Found {total_tracks} tracks to process")
     
-    # Use tqdm for progress reporting
     for idx, track_entry in enumerate(tqdm(tracks, desc="Updating tracks", unit="track")):
-        # Skip already processed tracks
         if idx in processed_indices:
             continue
         for artist in track_entry['artists']:
@@ -141,36 +134,29 @@ def update_tracks_with_artist_details(file_path):
             if artist_details:
                 artist.update(artist_details)
             
-            # Add a delay to avoid hitting rate limits
-            delay = random.uniform(1, 2)  # Increased delay to be more conservative
+            delay = random.uniform(1, 2)
             time.sleep(delay)
         
-        # Mark this track as processed
         processed_indices.add(idx)
         
-        # Save progress periodically (every 10 tracks)
         if idx % 10 == 0:
             save_progress(file_path, processed_indices)
-            # Also save the current state of the tracks
             with open(f"{file_path}.partial", 'w') as f:
                 json.dump(tracks, f, indent=4)
     
-    # Write the updated tracks back to the file
     with open(file_path, 'w') as f:
         json.dump(tracks, f, indent=4)
     
-    # Clear progress file as we've completed successfully
     if os.path.exists(PROGRESS_FILE):
         os.remove(PROGRESS_FILE)
     
     logging.info(f"Successfully updated all {total_tracks} tracks")
 
-# Example usage:
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         file_path = sys.argv[1]
     else:
-        file_path = '../data/tracks/tracks_2.json'
+        file_path = '../data/tracks/tracks_5.json'
         
     logging.info(f"Starting processing of {file_path}")
     update_tracks_with_artist_details(file_path)
