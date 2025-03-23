@@ -7,6 +7,18 @@ import seaborn as sns
 import pandas as pd
 from squarify import squarify
 
+# Example usage:
+# genre_groups = track_classifier(args.track_files)
+# print(genre_groups)
+# genre_distribution = {k: len(v) for k, v in genre_groups.items()}
+# print(sorted(genre_distribution.items(), key=lambda x: -x[1]))
+# genre_df, track_genre_matrix = prepare_genre_data(genre_groups)
+# plot_genre_bars(genre_df, top_n=35)
+# plot_genre_pie(genre_df, top_n=8)
+# plot_genre_heatmap(track_genre_matrix)
+# plot_genre_histogram(track_genre_matrix)
+# plot_genre_treemap(genre_df)
+
 def prepare_genre_data(genre_groups):
     """
     Prepare data structures for visualization
@@ -81,3 +93,5 @@ def plot_genre_treemap(genre_df, top_n=30, figsize=(16,10)):
     plt.title(f'Genre Popularity Treemap (Top {top_n})')
     plt.axis('off')
     plt.show()
+
+
