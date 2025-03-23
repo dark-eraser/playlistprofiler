@@ -176,3 +176,4 @@ creds.json
 # data
 data/
 *.pkl
+*.log

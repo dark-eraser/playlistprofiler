@@ -5,7 +5,12 @@ name = "pypi"
 
 [packages]
 spotipy = "2.25.1"
-
+pandas = "2.3.3"
+numpy = "*"
+matplotlib = "*"
+seaborn = "*"
+tqdm = "4.67.1"
+squarify = "0.4.4"
 [dev-packages]
 
 [requires]
