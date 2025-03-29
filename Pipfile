@@ -13,6 +13,7 @@ squarify = "0.4.4"
 pandas = ">=2.2.0"
 scikit-learn = "*"
 fuzzywuzzy = "*"
+python-levenshtein = "*"
 
 [dev-packages]
 
