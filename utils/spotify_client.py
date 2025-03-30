@@ -10,7 +10,7 @@ class SpotipyClient:
         self.scope = scope
 
     @staticmethod
-    def load_credentials(file_path='creds.json'):
+    def load_credentials(file_path='/Users/darkeraser/Documents/dev/playlistprofiler/utils/creds.json'):
         """Loads credentials from a JSON file."""
         try:
             if not os.path.exists(file_path):
