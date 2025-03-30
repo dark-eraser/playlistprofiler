@@ -35,16 +35,22 @@ Playlistprofiler is a tool to help you organize your liked songs into playlists 
 
 ```
 playlistprofiler/
-├── main.py               # Entry point of the application
-├── requirements.txt      # List of dependencies
-├── README.md             # Project documentation
-├── spotify_genres.json   # list of available spotify genres
-├── data/                 # Directory for storing data files
-├── utils/                # Utility functions and helpers
-│   ├── spotify_client.py # Spotify API client for authentication and requests
-│   ├── saved_tracks.py   # Functions to fetch and save Spotify tracks
-│   ├── helper.py         # Helper functions for processing track and artist data
-│   └── genres.py         # Functions to classify tracks by genre and update artist details
+├── main.py                      # Entry point of the application
+├── requirements.txt             # List of dependencies
+├── README.md                    # Project documentation
+├── spotify_genres.json          # list of available spotify genres
+├── data/                        # Directory for storing data files
+├── examples/                    # Example use cases of the different functions to get started
+├── utils/                       # Utility functions and helpers
+│   ├── spotify_client.py        # Spotify API client for authentication and requests
+│   ├── saved_tracks.py          # Functions to fetch and save Spotify tracks
+│   ├── helper.py                # Helper functions for processing track and artist data
+│   └── genres.py                # Functions to classify tracks by genre and update artist details
+│   ├── visualization.py         # A few functions to help visualize your spotify data
+│   ├── playlist.py              # Function to interact with playlist objects
+│   ├── file_splitting.py         # For better performance
+│   └── genre_classification.py   # Functions to organize subgenres into top-level genres, with
+                                 # different classification methods
 ```
 
 ## Contents of Codebase processing data.

@@ -1,7 +1,7 @@
 import json
 import argparse
-from playlist import *
-from spotify_client import SpotipyClient
+from utils.playlist import *
+from utils.spotify_client import SpotipyClient
 
 def main():
     parser = argparse.ArgumentParser(description='Extract unique artists without genres from track files.')
@@ -9,7 +9,7 @@ def main():
     args = parser.parse_args()
     spotipyclient = SpotipyClient('SpotipyClientname', 'password', 'http://localhost:8080', '')
     sp = spotipyclient.get_token()
-    playlist = create_playlist(sp, playlist_name="Jazzy")
+    playlist = create_playlist(sp, playlist_name="Jazzyy")
     add_tracks_to_playlist(sp, args.track_files, playlist_id=playlist['id'], genre="jazz")
     
 if __name__ == '__main__':

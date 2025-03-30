@@ -1,5 +1,7 @@
 ## Track-Genre Classification
-Given a json file of sub genres and their association to top-level genres, classify track files based on the subgenres the artists of the given tracks are associated with:
+Given a json file of sub genres and their association to top-level genres, classify track files based on the subgenres the artists of the given tracks are associated with.
+
+Source file: `genre_classification.py`
 
 ```python
 parser = argparse.ArgumentParser(description='Extract unique artists without genres from track files.')
@@ -26,6 +28,8 @@ print(f"Processed {len(tracks)} tracks from {file_path}")
 ## Utility for Genre Classification
 
 This script processes JSON files containing track and artist data, classifies each artist's subgenres into top-level genres, and updates the JSON files accordingly. It uses a genres.json file to validate and map subgenres to predefined top-level genres. The script also clears any existing top_genre field and replaces it with a new top_genres field containing validated classifications.
+
+Source file: `genre_classification.py`
 
 ```python
     with open('genres.json', 'r') as f:
